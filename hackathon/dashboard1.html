@@ -1,0 +1,610 @@
+<?php session_start();
+
+$msgstatus=$_REQUEST['status'];
+ ?>
+
+<!doctype html>
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+
+<!--[if gt IE 8]><!-->
+
+<html class="no-js" lang="">
+
+<!--<![endif]-->
+
+
+
+<head>
+
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Surprising offers awaiting for you...</title>
+
+    <meta name="description" content="">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" href="img/favicon.png">
+
+
+
+    <link rel="stylesheet" href="dist/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="dist/css/bootstrap-theme.min.css">
+<link href="dist/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">   
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+     <link href='http://fonts.googleapis.com/css?family=Vollkorn:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
+
+
+
+
+
+
+    <style type="text/css">
+
+    .container-fluid, .container{
+
+      padding-left:0px;
+
+      padding-right: 0px;
+
+      }
+
+      </style>
+
+       <!-- CSS Calendar -->
+
+      <!-- <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen"> -->
+
+
+
+
+
+    <script>
+
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+
+
+  ga('create', 'UA-57351903-21', 'auto');
+
+  ga('send', 'pageview');
+
+
+
+</script>
+
+<script>
+function myFunction() {
+    window.open("http://bbcl.in/");
+}
+</script>
+
+</head>
+
+
+
+<body>
+
+ <div class="col-md-6">
+
+           <div class="form-group">
+
+                
+
+                <div class="input-group date form_datetime col-md-12" data-date="" data-date-format="yyyy-mm-dd - HH:ii p" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd - HH:ii p">
+
+                    <input class="form-control modalname" size="16" type="text" value="" readonly name="pickdate" placeholder="Choose Date & Time">
+
+                    
+
+          <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+
+                </div>
+
+        <input type="hidden" id="dtp_input1" value="" />
+
+            </div>
+
+
+
+            <!-- <input type="text" class="modalname" name="bdate" placeholder="Date & Time Of SiteVisit"> -->
+
+          </div>
+   
+    
+
+   
+
+
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+    <script>
+
+    window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')
+
+    </script>
+
+
+    <script src="dist/js/bootstrap.min.js"></script>
+
+
+    
+
+
+
+  
+    
+
+<script type="text/javascript" src="dist/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+
+<script type="text/javascript">
+
+    
+
+  $('.form_datetime').datetimepicker({
+
+        //language:  'fr',
+
+        weekStart: 1,
+
+        todayBtn:  1,
+
+    autoclose: 1,
+
+    todayHighlight: 1,
+
+    startView: 2,
+
+    forceParse: 0,
+
+        showMeridian: 1,
+
+
+
+    });
+
+  
+
+</script>
+
+
+
+<script type="text/javascript">
+
+   
+
+
+
+  function QuickValidate(theform)
+
+
+
+    {
+
+
+
+        if(document.referfrm.fromname.value=="")
+
+        {
+
+            alert("From Name should not be empty");
+
+            document.referfrm.fromname.focus();
+
+            return false;
+
+        }
+
+    
+
+        if(document.referfrm.fromemail.value == "")
+
+        {
+
+            alert("From Email should not be empty");
+
+            document.referfrm.fromemail.focus();
+
+            return false;
+
+        }
+
+      
+
+        if(document.referfrm.fromemail.value != "")
+
+        {
+
+             if(document.referfrm.fromemail.value.search(/^(\w+(?:\.\w+)*)@((?:\w+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i)){
+
+                    alert("Please enter valid email address");
+
+                    document.referfrm.fromemail.focus();
+
+                    return false;
+
+                }
+
+        }
+
+
+
+        if(document.referfrm.toname.value=="")
+
+        {
+
+            alert("To Name should not be empty");
+
+            document.referfrm.toname.focus();
+
+            return false;
+
+        }
+
+    
+
+               
+
+    if(document.referfrm.tomobile.value=="")
+
+        {
+
+            alert("To Mobile No. should not be empty");
+
+            document.referfrm.tomobile.focus();
+
+            return false;
+
+        }
+
+        else if(isDigits(document.referfrm.tomobile.value)==false)
+
+        {
+
+            alert("To Mobile No. should be in number");
+
+            document.referfrm.tomobile.focus();
+
+            return false;
+
+        }
+
+        
+
+         else if(referfrm.tomobile.value.length != 10)
+
+      {
+
+       alert("Please enter 10 digit number.");
+
+       document.referfrm.tomobile.focus();
+
+       return false;
+
+      } 
+
+       
+
+    return true;
+
+    }
+
+
+
+    function QuickValidate2(theform)
+
+
+
+    {
+
+
+
+        if(document.bookfrm.bname.value=="")
+
+        {
+
+            alert("Name should not be empty");
+
+            document.bookfrm.bname.focus();
+
+            return false;
+
+        }
+
+    
+
+        if(document.bookfrm.bemail.value == "")
+
+        {
+
+            alert("Email should not be empty");
+
+            document.bookfrm.bemail.focus();
+
+            return false;
+
+        }
+
+      
+
+        if(document.bookfrm.bemail.value != "")
+
+        {
+
+             if(document.bookfrm.bemail.value.search(/^(\w+(?:\.\w+)*)@((?:\w+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i)){
+
+                    alert("Please enter valid email address");
+
+                    document.bookfrm.bemail.focus();
+
+                    return false;
+
+                }
+
+        }
+
+
+
+          
+
+               
+
+    if(document.bookfrm.bmobile.value=="")
+
+        {
+
+            alert("Mobile No. should not be empty");
+
+            document.bookfrm.bmobile.focus();
+
+            return false;
+
+        }
+
+        else if(isDigits(document.bookfrm.bmobile.value)==false)
+
+        {
+
+            alert("Mobile No. should be in number");
+
+            document.bookfrm.bmobile.focus();
+
+            return false;
+
+        }
+
+        
+
+         else if(bookfrm.bmobile.value.length != 10)
+
+      {
+
+       alert("Please enter 10 digit number.");
+
+       document.bookfrm.bmobile.focus();
+
+       return false;
+
+      } 
+
+
+
+      if(document.bookfrm.pickdate.value=="")
+
+        {
+
+            alert("Pick the Date. should not be empty");
+
+            document.bookfrm.pickdate.focus();
+
+            return false;
+
+        }
+
+       
+
+    return true;
+
+    }
+
+    
+
+
+
+
+
+    // Remove the spaces from the entered and generated code
+
+    function removeSpaces(string){
+
+        return string.split(' ').join('');
+
+    }
+
+
+
+
+
+    //EMAIL VALIDATION
+
+    function echeck(str) {
+
+        var at="@";
+
+        var dot=".";
+
+        var lat=str.indexOf(at);
+
+        var lstr=str.length;
+
+        var ldot=str.indexOf(dot);
+
+        if (str.indexOf(at)==-1){
+
+           alert("Invalid E-mail ID");
+
+           return false;
+
+        }
+
+
+
+        if (str.indexOf(at)==-1 || str.indexOf(at)==0 || str.indexOf(at)==lstr){
+
+           alert("Invalid E-mail ID");
+
+           return false;
+
+        }
+
+
+
+        if (str.indexOf(dot)==-1 || str.indexOf(dot)==0 || str.indexOf(dot)==lstr){
+
+            alert("Invalid E-mail ID");
+
+            return false;
+
+        }
+
+
+
+         if (str.indexOf(at,(lat+1))!=-1){
+
+            alert("Invalid E-mail ID");
+
+            return false;
+
+         }
+
+
+
+         if (str.substring(lat-1,lat)==dot || str.substring(lat+1,lat+2)==dot){
+
+            alert("Invalid E-mail ID");
+
+            return false;
+
+         }
+
+         if (str.indexOf(dot,(lat+2))==-1){
+
+            alert("Invalid E-mail ID");
+
+            return false;
+
+         }      
+
+         if (str.indexOf(" ")!=-1){
+
+            alert("Please Enter a Valid E-mail ID");
+
+            return false;
+
+         }
+
+                    
+
+    }
+
+
+
+    //DIGIT VALIDATION
+
+    function isDigits(argvalue) {
+
+        argvalue = argvalue.toString();
+
+        var validChars = "0123456789";
+
+        var startFrom = 0;
+
+        if (argvalue.substring(0, 2) == "0x") {
+
+           validChars = "0123456789abcdefABCDEF";
+
+           startFrom = 2;
+
+        } else if (argvalue.charAt(0) == "0") {
+
+           validChars = "01234567";
+
+           startFrom = 1;
+
+        }
+
+        for (var n = 0; n < argvalue.length; n++) {
+
+            if (validChars.indexOf(argvalue.substring(n, n+1)) == -1) return false;
+
+        }
+
+      return true;
+
+    }
+
+   
+
+</script>
+
+
+
+<!-- Google Code for Leads Conversion Page -->
+
+<script type="text/javascript">
+
+/* <![CDATA[ */
+
+var google_conversion_id = 954753605;
+
+var google_conversion_language = "en";
+
+var google_conversion_format = "3";
+
+var google_conversion_color = "ffffff";
+
+var google_conversion_label = "awFDCPSVz1oQxcShxwM";
+
+var google_remarketing_only = false;
+
+/* ]]> */
+
+</script>
+
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+
+</script>
+
+<noscript>
+
+<div style="display:inline;">
+
+<img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/954753605/?label=awFDCPSVz1oQxcShxwM&amp;guid=ON&amp;script=0"/>
+
+</div>
+
+</noscript>
+
+
+
+</body>
+
+
+
+</html>
+
