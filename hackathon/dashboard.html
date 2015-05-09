@@ -134,14 +134,6 @@ document.getElementsByName('userid').value = userid;
 <script type="text/javascript" charset="utf-8" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
  <script type="text/javascript">
 
-
-
-
-
-
-
-
-
 jQuery(function($) {
     // Asynchronously Load the map API 
     var script = document.createElement('script');
@@ -232,99 +224,89 @@ function error(error)
 function initialize(res) 
 {
 //alert(res);
- var parkinfo=[];
-    var parkdetails1=[];
-    var parkdetails2=[];
-    var y=0;
-    var b=0;
-    var n=0;
-    var iconURLPrefix = 'http://dotsit.in/parking/images/';
-var current_location;
-    $.each(res.parkingdetails, function(j,res1) 
-    {
-
+  var locations=[];
+  var parkdetails1=[];
+  var icons=[];
+  var y=0;
+  var b=0;
+  var n=0;
+  var iconURLPrefix = 'http://dotsit.in/parking/images/';
+  var search_location;
+  $.each(res.parkingdetails, function(j,res1) 
+  {
      // alert(res1.status);
-if (res1.status=="success")
-{
+    if (res1.status=="success")
+    {
+        var x = [res1.lat,res1.lng];
+        locations[y]=x; y++;
+        
+       var a = ['<div class="info_content"><p>'+res1.address+'</p><p><a href="javascript:booking('+res1.parkingid+','+res1.fromdate+','+res1.fromtime+','+res1.totime+','+res1.aproxprice+')">Book Now</a></p></div>'];
+       //alert(a);
+        parkdetails1[b]=a; b++;
+        if (res1.availcount==0){
+           var m = iconURLPrefix + 'parking_pin1.png';
+           icons.push(m);
+        }
+        else
+        {
+            var m = iconURLPrefix + 'parking_pin.png';
+           icons.push(m); 
+        }
+        search_location = res1.searchlocation;
+    }
+    else
+    {
+        //No nearby parking slots found.. Render only search location.
+        var x = [res1.lat,res1.lng];
+        locations[y]=x; 
+        
+       var a = ['<div class="info_content"><p>No Parking Lots found nearby for your search location. Did you try searching another nearby location?</p></div>'];
+       parkdetails1[b]=a;
+
+       var m = iconURLPrefix + 'current_pin.png';
+       icons.push(m);
+    }
+  });
   
+  var locArray;
+  if(y==0) {
+    locArray = locations[y];
+  } else {
+	locArray = search_location.split(','); 
+	locations[y] = locArray;
+	var m = iconURLPrefix + 'current_pin.png';
+	icons.push(m);
+  }
 
-
-var x = ['<h4>'+res1.availcount+'</h4><p>'+res1.address+'</p>',res1.lat,res1.lng];
-    parkinfo[y]=x; y++;
-    
-   var a = ['<div class="info_content"><h3>'+res1.availcount+'</h3><p>'+res1.address+'</p><p><a href="javascript:booking('+res1.parkingid+','+res1.fromdate+','+res1.fromtime+','+res1.totime+','+res1.aproxprice+')">Book Now</a></p></div>'];
-   //alert(a);
-   parkdetails1[b]=a; b++;
-if (res1.availcount==0){
-   var m = iconURLPrefix + 'parking_pin1.png';
-   parkdetails2.push(m);
-}
-else
-{
-    var m = iconURLPrefix + 'parking_pin.png';
-   parkdetails2.push(m); 
-}
-}
-else
-{
-    var x = ['<h4>'+res1.parkingname+'</h4><p>'+res1.address+'</p>',res1.lat,res1.lng];
-    parkinfo[y]=x; y++;
-    
-   var a = ['<div class="info_content"><h3>'+res1.parkingname+'</h3><p>test'+res1.address+'</p></div>'];
-   parkdetails1[b]=a; b++;
-
-   var m = iconURLPrefix + 'parking_pin.png';
-   parkdetails2.push(m);
-
-current_location="yes";
-
-}
-    });
-    //alert(parkinfo);
-    //alert(parkdetails1);
-
-    var locations = parkinfo;
- // Define your locations: HTML content for the info window, latitude, longitude
-if (current_location=="yes")
-{
-    parkinfo[y]=['<h4>Current location</h4>',latitude,longitude];
-    parkdetails2.push(iconURLPrefix + 'current_pin.png');
- }
-
-  
-    // Setup the different icons and shadows
- var icons =parkdetails2;
-
-    var iconsLength = icons.length;
-
-    var map = new google.maps.Map(document.getElementById('map_canvas'), {
-      zoom: 14,
-      center: new google.maps.LatLng(latitude, longitude),
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-      mapTypeControl: false,
-      streetViewControl: false,
-      panControl: false,
-      zoomControlOptions: {
-         position: google.maps.ControlPosition.LEFT_BOTTOM
-      }
-    });
+  var iconsLength = icons.length;
+  var map = new google.maps.Map(document.getElementById('map_canvas'), {
+    zoom: 7,
+    center: new google.maps.LatLng(locArray[0], locArray[1]),
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    mapTypeControl: false,
+    streetViewControl: false,
+    panControl: false,
+    zoomControlOptions: {
+       position: google.maps.ControlPosition.LEFT_BOTTOM
+    }
+  });
 	
 	var input = document.getElementById('address');
 	var autocomplete = new google.maps.places.Autocomplete(input);
 	autocomplete.bindTo('bounds', map);
+  var infowindow = new google.maps.InfoWindow({
+    maxWidth: 160
+  });
 
-    var infowindow = new google.maps.InfoWindow({
-      maxWidth: 160
-    });
+  var markers = new Array();
+  var iconCounter = 0;
+  
 
-    var markers = new Array();
-    
-    var iconCounter = 0;
-    
+
     // Add the markers and infowindows to the map
     for (var i = 0; i < locations.length; i++) {  
       var marker = new google.maps.Marker({
-        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        position: new google.maps.LatLng(locations[i][0], locations[i][1]),
         map: map,
         icon: icons[iconCounter]
       });
@@ -356,7 +338,9 @@ if (current_location=="yes")
       //  Fit these bounds to the map
       map.fitBounds(bounds);
     }
-    autoCenter();
+    if(y!=0) {
+		autoCenter();
+	}
 
 }
 
