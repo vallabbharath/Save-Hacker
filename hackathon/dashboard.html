@@ -40,7 +40,7 @@ document.getElementsByName('userid').value = userid;
 
 <div class="dashcontent">
 
- <div id="blah" class="menu-wrap" >
+ <div id="sidebar" class="menu-wrap" >
 
                 <nav class="menu">
                     <div class="icon-list">
@@ -464,11 +464,10 @@ if (r == true) {
 
       }
 
-var screenwidth = window.screen.width;
-var screenwidth1=screenwidth*0.75;
-      var screenheight = window.screen.height;
 
-  document.getElementById("blah").style = "height:" + screenheight + "px; width:"+screenwidth1+"px;";
+$("#sidebar").height($(window).height());
+$("#sidebar").width($(window).width()*0.75);
+
 
 </script>
 
