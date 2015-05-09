@@ -77,9 +77,9 @@ var usrtype="owner";
             xhr.getResponseHeader("Accept", "json");
           },
           success : function(res) {
+            alert(res.status);
           if (res.status == "success") {
               console.log(res);
-alert(res.userid);
          
           //window.plugins.nativepagetransitions.flip({
 // the defaults for direction, duration, etc are all fine
@@ -94,9 +94,14 @@ alert(res.userid);
         {
             window.location.href = "dashboard1.html?id="+res.userid;
         }
-            } else {
+            } if (res.status == "fail") { 
 
                document.getElementById("errormsg").innerHTML="Invalid username or password";
+            }
+
+            if (res.status == "fail2") { 
+
+               document.getElementById("errormsg").innerHTML="Your account not activated.";
             }
 
             if (res.status == "fail1") {
