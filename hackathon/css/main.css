@@ -92,7 +92,7 @@ input[type=radio]:checked + label {
 input[type=radio] + label {
     background-image: none;   
     outline: 0;
-     opacity: .2;   
+     opacity: .5;   
 }
 
 
@@ -148,7 +148,10 @@ label {
   padding-top: 15% !important;
 }
 
-
+input:focus::-webkit-input-placeholder { color:transparent; }
+input:focus:-moz-placeholder { color:transparent; } /* Firefox 18- */
+input:focus::-moz-placeholder { color:transparent; } /* Firefox 19+ */
+input:focus:-ms-input-placeholder { color:transparent; } /* oldIE ;) */
 
 /*// sree*/
 

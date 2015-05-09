@@ -9,12 +9,16 @@
 	<link rel="stylesheet" type="text/css" href="css/normalize.css" />
 	<link rel="stylesheet" type="text/css" href="css/demo.css" />
 	<link rel="stylesheet" type="text/css" href="css/menu_sideslide.css" />
-	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">        
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+   <link rel="stylesheet" type="text/css" href="dist/css/jquery.datetimepicker.css"/>        
 	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
 	<link rel="stylesheet" href="css/main.css">
 	<!--<script type="text/javascript" src="cordova.js"></script>  -->     
 	<script type="text/javascript" src="config.js"></script>
 	<script type="text/javascript">
+
+
+
 var file, n;
 
 file = window.location.pathname+window.location.search;
@@ -23,6 +27,9 @@ var split = file.split('=');
 
 var userid = split[1];
 document.getElementsByName('userid').value = userid;
+
+
+
 
           </script>
 
@@ -37,12 +44,12 @@ document.getElementsByName('userid').value = userid;
 
                 <nav class="menu">
                     <div class="icon-list">
-                        <a href="#"><i class="fa fa-fw fa-star-o"></i><span>Favorites</span></a>
-                        <a href="#"><i class="fa fa-fw fa-bell-o"></i><span>Alerts</span></a>
-                        <a href="#"><i class="fa fa-fw fa-envelope-o"></i><span>Messages</span></a>
-                        <a href="#"><i class="fa fa-fw fa-comment-o"></i><span>Comments</span></a>
-                        <a href="#"><i class="fa fa-fw fa-bar-chart-o"></i><span>Analytics</span></a>
-                        <a href="#"><i class="fa fa-fw fa-newspaper-o"></i><span>Reading List</span></a>
+                     <a href="#"><i class="fa fa-fw fa-bell-o"></i><span>My Home</span></a>
+                     <a href="#"><i class="fa fa-fw fa-envelope-o"></i><span>My profile</span></a>
+                        <a href="bookinghistory.html" onclick="location.href=this.href+'?id='+userid;return false;"><i class="fa fa-fw fa-star-o"></i><span>Booking History</span></a>
+                       
+                        
+                       
                     </div>
                 </nav>
                 <button class="close-button" id="close-button">Close Menu</button>
@@ -64,8 +71,8 @@ document.getElementsByName('userid').value = userid;
     <form id="user-location" method="post" action="#">
 
 
-<div class="col-xs-8"> <input type="datetime-local" value="" id="datetimepicker_mask" name="datetimepicker_mask" class="form-control" /> </div>
-<div class="col-xs-4"> <input type="time" value="" id="datetimepicker1" name="datetimepicke1" class="form-control" /></div>
+<div class="col-xs-8"> <input type="text" value="" id="datetimepicker_mask" name="datetimepicker_mask" class="form-control" /> </div>
+<div class="col-xs-4"> <input type="text" value="" id="datetimepicker1" name="datetimepicke1" class="form-control" /></div>
 <div class="clearfix"></div>
 <div class="gap10"></div>
 
@@ -466,6 +473,95 @@ var screenwidth1=screenwidth*0.75;
 </script>
 
 <script src="dist/js/jquery.js"></script>
+<script src="dist/js/jquery.datetimepicker.js"></script>
+<script>/*
+window.onerror = function(errorMsg) {
+  $('#console').html($('#console').html()+'<br>'+errorMsg)
+}*/
 
+$('#datetimepicker_mask').datetimepicker({
+  mask:'9999/19/39 29:59'
+});
+
+$('#datetimepicker1').datetimepicker({
+  datepicker:false,
+  format:'H:i',
+  step:5
+});
+
+$('#open').click(function(){
+  $('#datetimepicker4').datetimepicker('show');
+});
+$('#close').click(function(){
+  $('#datetimepicker4').datetimepicker('hide');
+});
+$('#reset').click(function(){
+  $('#datetimepicker4').datetimepicker('reset');
+});
+
+$('#destroy').click(function(){
+  if( $('#datetimepicker6').data('xdsoft_datetimepicker') ){
+    $('#datetimepicker6').datetimepicker('destroy');
+    this.value = 'create';
+  }else{
+    $('#datetimepicker6').datetimepicker();
+    this.value = 'destroy';
+  }
+});
+var logic = function( currentDateTime ){
+  if (currentDateTime && currentDateTime.getDay() == 6){
+    this.setOptions({
+      minTime:'11:00'
+    });
+  }else
+    this.setOptions({
+      minTime:'8:00'
+    });
+};
+$('#datetimepicker7').datetimepicker({
+  onChangeDateTime:logic,
+  onShow:logic
+});
+$('#datetimepicker8').datetimepicker({
+  onGenerate:function( ct ){
+    $(this).find('.xdsoft_date')
+      .toggleClass('xdsoft_disabled');
+  },
+  minDate:'-1970/01/2',
+  maxDate:'+1970/01/2',
+  timepicker:false
+});
+$('#datetimepicker9').datetimepicker({
+  onGenerate:function( ct ){
+    $(this).find('.xdsoft_date.xdsoft_weekend')
+      .addClass('xdsoft_disabled');
+  },
+  weekends:['01.01.2014','02.01.2014','03.01.2014','04.01.2014','05.01.2014','06.01.2014'],
+  timepicker:false
+});
+var dateToDisable = new Date();
+  dateToDisable.setDate(dateToDisable.getDate() + 2);
+$('#datetimepicker11').datetimepicker({
+  beforeShowDay: function(date) {
+    if (date.getMonth() == dateToDisable.getMonth() && date.getDate() == dateToDisable.getDate()) {
+      return [false, ""]
+    }
+
+    return [true, ""];
+  }
+});
+$('#datetimepicker12').datetimepicker({
+  beforeShowDay: function(date) {
+    if (date.getMonth() == dateToDisable.getMonth() && date.getDate() == dateToDisable.getDate()) {
+      return [true, "custom-date-style"];
+    }
+
+    return [true, ""];
+  }
+});
+$('#datetimepicker_dark').datetimepicker({theme:'dark'})
+
+
+</script>
 <script type="text/javascript" src="dist/js/scripts.js"></script>
 </html>
