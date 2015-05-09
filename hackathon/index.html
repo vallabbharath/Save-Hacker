@@ -1,0 +1,351 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="css/normalize.css" />
+        <link rel="stylesheet" type="text/css" href="css/demo.css" />
+        <link rel="stylesheet" type="text/css" href="css/menu_sideslide.css" />
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/main.css">
+
+
+        <!--<script type="text/javascript" src="cordova.js"></script>  -->     
+        <script type="text/javascript" src="config.js"></script>
+
+        <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+
+
+        <script type="text/javascript" charset="utf-8">
+
+ function accessuserpwd()   //webservices hit and validation for uname and pwd
+{
+
+
+
+       var values;
+       var username = document.getElementById("username").value;
+       var pwd = document.getElementById("password").value;
+
+
+       if (username=='')
+       {
+        alert("Enter Username");
+        return false;
+       }
+
+       if (pwd=='')
+       {
+        alert("Enter Password");
+        return false;
+       }
+
+ var usrtype1=document.getElementById("radio1").checked;
+ var usrtype2=document.getElementById("radio2").checked;
+
+ if (usrtype1==true)
+ {
+var usrtype="user";
+ }
+
+  if (usrtype2==true)
+ {
+var usrtype="owner";
+ }
+
+
+       var userpwd = "username=" + username +"&password=" + pwd+"&usertype=" + usrtype;
+
+       alert(userpwd);
+       console.log(userpwd);
+
+        $.ajax({
+          type : "post",
+         url : baseurl + "user_login",
+          data : userpwd,
+          dataType : "json",
+          Complete : function(xhr) {
+            xhr.getResponseHeader("Accept", "json");
+          },
+          success : function(res) {
+          if (res.status == "success") {
+              console.log(res);
+alert(res.userid);
+         
+          //window.plugins.nativepagetransitions.flip({
+// the defaults for direction, duration, etc are all fine
+          //"href" : "dashboard.html"
+           // });
+
+        if (usrtype=="user")
+        {
+              window.location.href = "dashboard.html?id="+res.userid;
+        }
+        else
+        {
+            window.location.href = "dashboard1.html?id="+res.userid;
+        }
+            } else {
+
+               document.getElementById("errormsg").innerHTML="Invalid username or password";
+            }
+
+            if (res.status == "fail1") {
+              alert("fail");
+            }
+          }
+        });
+
+      }
+
+      function error(transaction, err)//error function
+      {
+        alert("DB error : " + err.message);
+        return false;
+      }
+
+
+      function newuser()
+      {
+        alert("test");
+document.getElementById("userlogin").style.display = "none";
+
+document.getElementById("usersignup").style.display = "block";
+document.getElementById("usersignpbutt").style.display = "none";
+
+
+      }
+
+
+function signupsubmit()
+{
+
+     var values;
+       var fname = document.getElementById("fname").value;
+       var email = document.getElementById("email").value;
+       var mobile = document.getElementById("mobile").value;
+       var pwd1 = document.getElementById("spassword").value;
+
+
+       if (fname=='')
+       {
+        alert("Enter Your Name");
+        return false;
+       }
+
+       if (email=='')
+       {
+        alert("Enter Your Email");
+        return false;
+       }
+
+       if (mobile=='')
+       {
+        alert("Enter Your mobile no.");
+        return false;
+       }
+
+       if (pwd1=='')
+       {
+        alert("Enter Password");
+        return false;
+       }
+
+ var usrtype1=document.getElementById("radio1").checked;
+ var usrtype2=document.getElementById("radio2").checked;
+
+ if (usrtype1==true)
+ {
+var usrtype="user";
+ }
+
+  if (usrtype2==true)
+ {
+var usrtype="owner";
+ }
+
+alert("test111");
+       var userpwd = "fname=" + fname +"&email=" + email+"&mobile=" + mobile+"&pwd=" + pwd1+"&usertype=" + usrtype;
+
+       alert(userpwd);
+       console.log(userpwd);
+
+        $.ajax({
+          type : "post",
+         url : baseurl + "signup",
+          data : userpwd,
+          dataType : "json",
+          Complete : function(xhr) {
+            xhr.getResponseHeader("Accept", "json");
+          },
+          success : function(res) {
+          if (res.status == "success") {
+              console.log(res);
+
+         
+          //window.plugins.nativepagetransitions.flip({
+// the defaults for direction, duration, etc are all fine
+          //"href" : "dashboard.html"
+           // });
+
+        if (usrtype=="user")
+        {
+              window.location.href = "thanks.html";
+        }
+        else
+        {
+            window.location.href = "thanks1.html";
+        }
+            } else {
+
+               document.getElementById("errormsg").innerHTML="Invalid username or password";
+            }
+
+            if (res.status == "fail1") {
+              alert("fail");
+            }
+          }
+        });
+
+
+}
+
+    </script>
+
+    </head>
+    <body>
+   
+<!--             <div class="menu-wrap">
+                <nav class="menu">
+                    <div class="icon-list">
+                        <a href="#"><i class="fa fa-fw fa-star-o"></i><span>Favorites</span></a>
+                        <a href="#"><i class="fa fa-fw fa-bell-o"></i><span>Alerts</span></a>
+                        <a href="#"><i class="fa fa-fw fa-envelope-o"></i><span>Messages</span></a>
+                        <a href="#"><i class="fa fa-fw fa-comment-o"></i><span>Comments</span></a>
+                        <a href="#"><i class="fa fa-fw fa-bar-chart-o"></i><span>Analytics</span></a>
+                        <a href="#"><i class="fa fa-fw fa-newspaper-o"></i><span>Reading List</span></a>
+                    </div>
+                </nav>
+                <button class="close-button" id="close-button">Close Menu</button>
+            </div>
+            <button class="menu-button" id="open-button">Open Menu</button>
+            <div class="content-wrap">
+                <div class="content">
+                    <header class="codrops-header"><h1>Title</h1></header>
+                  
+                </div> -->
+
+<img src="img/header-img.png" class="img-responsive">
+<div class="container">
+               
+
+
+<div id="usersignup" style="display:none">
+                     <form>
+  <div class="form-group">
+  
+    <input type="text" required class="custominput" id="fname" name="fname" placeholder="Name">
+  </div>
+  <div class="form-group">
+    
+    <input type="email" required class="custominput" id="email" name="email" placeholder="Email">
+  </div>
+
+  <div class="form-group">
+  
+    <input type="phone" required class="custominput" id="mobile" name="mobile" placeholder="Mobile">
+  </div>
+  <div class="form-group">
+    
+    <input type="password" required class="custominput" id="spassword" name="spassword" placeholder="Password">
+  </div>
+
+<div class="text-center">
+  <button type="button" onClick="signupsubmit()" class="btn btn-primary">Signup</button>
+  </div>
+
+ 
+<div class="clearfix"></div>
+<div class="gap20"></div>
+  <div id="userloginbutt">
+
+<div class="text-center">
+  <button type="button" onClick="newuser()" class="btn btn-warning">Back to Login</button>
+  </div>
+                 </div>
+</form>
+</div>
+
+
+
+                <div class="logindiv">
+                 <div class="col-md-12">
+                     
+
+<div id="userlogin">
+                     <form>
+  <div class="form-group">
+  
+    <input type="text" required class="custominput" id="username" name="username" placeholder="Username">
+  </div>
+  <div class="form-group">
+    
+    <input type="password" required class="custominput" id="password" name="password" placeholder="Password">
+  </div>
+
+<div class="text-center">
+  <button type="button" onClick="accessuserpwd()" class="btn btn-primary">Login</button>
+  </div>
+
+  <div id="errormsg" class="text-center white"></div>
+
+  
+</form>
+</div>
+
+<div id="usersignpbutt">
+
+<div class="text-center">
+  <button type="button" onClick="newuser()" class="btn btn-warning">New User Signup?</button>
+  </div>
+                 </div>
+                 </div>
+            </div><!-- /content-wrap -->
+        </div><!-- /container -->
+
+
+
+    
+    </div> <!-- /container -->        
+
+<footer class="footer">
+      <div class="container">
+      <div class="row">
+       <div class="col-xs-6"> <input id="radio1" name="radios" value="hs" checked="" type="radio" >
+   <label for="radio1" class="col-xs-12">Host a Space</label>
+ </div>
+        <div class="col-xs-6"> <input id="radio2" name="radios" value="fs" type="radio">
+   <label for="radio2" class="col-xs-12">Find a Space</label></button></div>
+      </div>
+      </div>
+    </footer>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+
+        <script src="js/vendor/bootstrap.min.js"></script>
+
+        <script src="js/main.js"></script>
+            <script src="js/classie.js"></script>
+        <script src="js/main1.js"></script>
+        
+    </body>
+</html>
