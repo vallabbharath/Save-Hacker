@@ -3,18 +3,19 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;">
 <title>My Location</title>
-	<link rel="stylesheet" href="https://developers.google.com/maps/documentation/javascript/examples/default.css" type="text/css"></link>
-         	  
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="css/normalize.css" />
-	<link rel="stylesheet" type="text/css" href="css/demo.css" />
-	<link rel="stylesheet" type="text/css" href="css/menu_sideslide.css" />
-	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">        
-	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
-	<link rel="stylesheet" href="css/main.css">
-	<!--<script type="text/javascript" src="cordova.js"></script>  -->     
-	<script type="text/javascript" src="config.js"></script>
-	<script type="text/javascript">
+          <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:400,500,700%7COpen+Sans:400,300">
+           <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:600,300" rel="stylesheet" type="text/css"/>
+          <link rel="stylesheet" href="https://developers.google.com/maps/documentation/javascript/examples/default.css" type="text/css"></link>
+          <link rel="stylesheet" href="dist/css/ratchet.min.css"> 
+          <link rel="stylesheet" href="dist/css/main.css">
+          <link rel="stylesheet" href="dist/css/swiper.min.css">
+          <link rel="stylesheet" href="dist/fonts/font-awesome.min.css">
+          <link rel="stylesheet" href="dist/css/bootstrap.min.css">
+          <link rel="stylesheet" href="dist/css/bootstrap-theme.min.css">
+          <link rel="stylesheet" type="text/css" href="dist/css/jquery.datetimepicker.css"/>
+          <!--<script type="text/javascript" src="cordova.js"></script>  -->     
+          <script type="text/javascript" src="config.js"></script>
+          <script type="text/javascript">
 var file, n;
 
 file = window.location.pathname+window.location.search;
@@ -24,91 +25,120 @@ var split = file.split('=');
 var userid = split[1];
 document.getElementsByName('userid').value = userid;
 
-          </script>
 
+          </script>
      </head>
 <body>
-   <div class="container1">
-          
-
-<div class="dashcontent">
-
- <div id="blah" class="menu-wrap" >
-
-                <nav class="menu">
-                    <div class="icon-list">
-                        <a href="#"><i class="fa fa-fw fa-star-o"></i><span>Favorites</span></a>
-                        <a href="#"><i class="fa fa-fw fa-bell-o"></i><span>Alerts</span></a>
-                        <a href="#"><i class="fa fa-fw fa-envelope-o"></i><span>Messages</span></a>
-                        <a href="#"><i class="fa fa-fw fa-comment-o"></i><span>Comments</span></a>
-                        <a href="#"><i class="fa fa-fw fa-bar-chart-o"></i><span>Analytics</span></a>
-                        <a href="#"><i class="fa fa-fw fa-newspaper-o"></i><span>Reading List</span></a>
-                    </div>
-                </nav>
-                <button class="close-button" id="close-button">Close Menu</button>
-            </div>
-           
-            <button class="menu-button" id="open-button">Open Menu</button>
-            <div class="content-wrap">
-                <div class="content">
-                    <header class="codrops-header"><h1>Title</h1></header>
-                  
-                </div> 
-
-                 
-                     
-          <div class="content dash-wrapper"></div>
-<div class="gap20"></div>
-    <div class="col-md-6">
-    <input type="hidden" value="" id="userid"/>
-    <form id="user-location" method="post" action="#">
+<header class="bar bar-nav header">
+          <a href="#" id="showmenu">
+          <button class="btn btn-link btn-nav pull-left">
+            <span class="icon icon-bars"></span>
+          </button></a>
+         <a href="login.html"> <button class="btn btn-link btn-nav pull-right">
+            <span class="icon icon-pages"></span>
+          </button></a>
+          <!-- <button class="btn btn-link btn-nav pull-right">
+            <i class="fa fa-bell"></i>
+          </button> -->
+        <h1 class="title font_logo">Parking</h1>
+</header>
+        <nav id="menu" class="left">
+          <ul>
+            <li><a href="dashboard.html" class="active"><i class="fa fa-home"></i>Home</a></li>
+            <li><a href="#"><i class="fa fa-info-circle"></i>Menu</a></li>            
+            <li><a href=""><i class="fa fa-envelope-o"></i><span>Menu</span></a></li>
+            <li><a href="#"><i class="fa fa-share-alt"></i><span>Menu</span></a></li>
+            
+          </ul>
+        </nav>
 
 
-<div class="col-xs-8"> <input type="datetime-local" value="" id="datetimepicker_mask" name="datetimepicker_mask" class="form-control" /> </div>
-<div class="col-xs-4"> <input type="time" value="" id="datetimepicker1" name="datetimepicke1" class="form-control" /></div>
+<div class="content dash-wrapper"></div>
+
+
+            <div class="frmlocation">
+             <div class="col-md-6">
+<input type="hidden" value="" id="userid">
+<form id="user-location" method="post" action="#">
+
+
+<div style="float:left; padding-right:10px; width:71%;" class="floatleft leftcol">
+
+
+                <div class="inputbox1" > 
+
+                  <input type="text" class="form-control" id="address" name="address" placeholder="Search for..." > 
+
 <div class="clearfix"></div>
-<div class="gap10"></div>
 
 
-<div class="col-xs-8">      <div class="inputbox1" > 
-          <input type="text" class="form-control" id="address" name="address" placeholder="Search for..." > 
-          <div class="clearfix"></div>
-          <input type="hidden" id="dtp_input1" value="" />
-        </div></div>
-<div class="col-xs-4"><button class="btn btn-default" id="submit" type="submit" type="submit">Go!</button></div>
-     
-     
+<!-- 
+                <div class="input-group date form_datetime col-md-12"  data-date="" data-date-format="yyyy-mm-dd - HH:ii p" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd - HH:ii p">
 
-         
+                    <input class="form-control modalname" size="16" type="text" value="" readonly name="pickdate" placeholder="Choose Date & Time">
+
+                    
+
+          <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+
+                </div> -->
+
+        <input type="hidden" id="dtp_input1" value="" />
+
+           
+       
+       </div> 
+    </div>
+<div class="floatleft rightcol" style="padding-left:10px;">
+                   <span class="input-group-btn" style="float:right; padding-right:36px;">
+                    <button class="btn btn-default" id="submit" type="submit" type="submit">Go!</button>
+                  </span> 
+                  </div>
+
+                  <div >
+                  <div class="leftcol">
+                  <input type="datetime-local" value="" id="datetimepicker2" name="datetimepicke2" style="width:90%;float:left;" />
+                  <input type="date" value="" id="datetimepicker3" name="datetimepicke3" style="width:90%;float:left;" />
+                  <input type="time" value="" id="datetimepicker4" name="datetimepicke4" style="width:90%;float:left;" />
+                    <input type="text" value="" id="datetimepicker_mask" name="datetimepicker_mask" style="width:90%;float:left;" />
+                    </div>
+                    <div class="rightcol">
+                <input type="text" id="datetimepicker1" name="datetimepicker1" style="width:100%; float:left;"/>
+                </div>
+
+                  </div>
                 <!-- </div> --><!-- /input-group -->
 
                 </form>
               </div><!-- /.col-lg-6 -->
             </div>
 
-          </div>
-    </div><!-- /container -->
-            <div id="map_canvas" style="position:absolute;"></div>
-			<div id="result"></div>
 
-             
-           
-    
+            <div id="map_canvas"></div>
+<div id="result"></div>
+         
+          <div class="bar1 bar-standard bar-footer">
+          <button class="btn btn-link btn-nav footer_button pull-left">
+           Home
+          </button>
+          <button class="btn btn-link btn-nav footer_button pull-left">
+           My Bookings
+          </button>
+          <button class="btn btn-link btn-nav footer_button pull-left">
+            Avialbility
+          </button>
+          <button class="btn btn-link btn-nav footer_button pull-left" type="button" onclick="refer()" style="border:none !important;">
+            Contact Us
+          </button>
+        </div>   
 
-
-
-    
-    
 </body>
 <script src="dist/js/jquery-1.11.1.min.js"></script>
 <script src="dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="dist/js/plugins.js"></script>
 <script type="text/javascript" src="dist/js/index.js"></script>
 <script type="text/javascript">app.initialize();</script>
-   
-    <script src="js/main.js"></script>
-        <script src="js/classie.js"></script>
-        <script src="js/main1.js"></script>
+<script src="dist/js/swiper.min.js"></script>
 
 <script>
     $("#showmenu").click(function(e){
@@ -454,15 +484,101 @@ if (r == true) {
 
       }
 
-var screenwidth = window.screen.width;
-var screenwidth1=screenwidth*0.75;
-      var screenheight = window.screen.height;
 
-  document.getElementById("blah").style = "height:" + screenheight + "px; width:"+screenwidth1+"px;";
+      
 
 </script>
 
 <script src="dist/js/jquery.js"></script>
+<script src="dist/js/jquery.datetimepicker.js"></script>
+<script>/*
+window.onerror = function(errorMsg) {
+  $('#console').html($('#console').html()+'<br>'+errorMsg)
+}*/
 
+$('#datetimepicker_mask').datetimepicker({
+  mask:'9999/19/39 29:59'
+});
+
+$('#datetimepicker1').datetimepicker({
+  datepicker:false,
+  format:'H:i',
+  step:5
+});
+
+$('#open').click(function(){
+  $('#datetimepicker4').datetimepicker('show');
+});
+$('#close').click(function(){
+  $('#datetimepicker4').datetimepicker('hide');
+});
+$('#reset').click(function(){
+  $('#datetimepicker4').datetimepicker('reset');
+});
+
+$('#destroy').click(function(){
+  if( $('#datetimepicker6').data('xdsoft_datetimepicker') ){
+    $('#datetimepicker6').datetimepicker('destroy');
+    this.value = 'create';
+  }else{
+    $('#datetimepicker6').datetimepicker();
+    this.value = 'destroy';
+  }
+});
+var logic = function( currentDateTime ){
+  if (currentDateTime && currentDateTime.getDay() == 6){
+    this.setOptions({
+      minTime:'11:00'
+    });
+  }else
+    this.setOptions({
+      minTime:'8:00'
+    });
+};
+$('#datetimepicker7').datetimepicker({
+  onChangeDateTime:logic,
+  onShow:logic
+});
+$('#datetimepicker8').datetimepicker({
+  onGenerate:function( ct ){
+    $(this).find('.xdsoft_date')
+      .toggleClass('xdsoft_disabled');
+  },
+  minDate:'-1970/01/2',
+  maxDate:'+1970/01/2',
+  timepicker:false
+});
+$('#datetimepicker9').datetimepicker({
+  onGenerate:function( ct ){
+    $(this).find('.xdsoft_date.xdsoft_weekend')
+      .addClass('xdsoft_disabled');
+  },
+  weekends:['01.01.2014','02.01.2014','03.01.2014','04.01.2014','05.01.2014','06.01.2014'],
+  timepicker:false
+});
+var dateToDisable = new Date();
+  dateToDisable.setDate(dateToDisable.getDate() + 2);
+$('#datetimepicker11').datetimepicker({
+  beforeShowDay: function(date) {
+    if (date.getMonth() == dateToDisable.getMonth() && date.getDate() == dateToDisable.getDate()) {
+      return [false, ""]
+    }
+
+    return [true, ""];
+  }
+});
+$('#datetimepicker12').datetimepicker({
+  beforeShowDay: function(date) {
+    if (date.getMonth() == dateToDisable.getMonth() && date.getDate() == dateToDisable.getDate()) {
+      return [true, "custom-date-style"];
+    }
+
+    return [true, ""];
+  }
+});
+$('#datetimepicker_dark').datetimepicker({theme:'dark'})
+
+
+</script>
 <script type="text/javascript" src="dist/js/scripts.js"></script>
 </html>
