@@ -240,17 +240,18 @@ function initialize(res)
         var x = [res1.lat,res1.lng];
         locations[y]=x; y++;
         
-       var a = ['<div class="info_content"><p>'+res1.address+'</p><p><a href="javascript:booking('+res1.parkingid+','+res1.fromdate+','+res1.fromtime+','+res1.totime+','+res1.aproxprice+')">Book Now</a></p></div>'];
-       //alert(a);
-        parkdetails1[b]=a; b++;
         if (res1.availcount==0){
            var m = iconURLPrefix + 'parking_pin1.png';
            icons.push(m);
+		   var a = ['<div class="info_content"><p>'+res1.availcount+'</p><p><a href="javascript:booking('+res1.parkingid+','+res1.fromdate+','+res1.fromtime+','+res1.totime+','+res1.aproxprice+')">Book Now</a></p></div>'];
+		   parkdetails1[b]=a; b++;
         }
         else
         {
-            var m = iconURLPrefix + 'parking_pin.png';
+           var m = iconURLPrefix + 'parking_pin.png';
            icons.push(m); 
+		   var a = ['<div class="info_content"><p>'+res1.availcount+'</p><p>Slot already booked for selected timing</p></div>'];
+		   parkdetails1[b]=a; b++;
         }
         search_location = res1.searchlocation;
     }
