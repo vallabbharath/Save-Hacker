@@ -124,7 +124,12 @@ document.getElementById("usersignpbutt").style.display = "none";
 
 
       }
-
+      function validateEmail(email) { var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i; return re.test(email); }
+       
+function validatePhone(mobile) {
+   var re = /^\d{10}$/;
+   return re.test(mobile);
+}
 
 function signupsubmit()
 {
@@ -142,16 +147,37 @@ function signupsubmit()
         return false;
        }
 
+
+
        if (email=='')
        {
         alert("Enter Your Email");
         return false;
        }
 
+       if (email!='')
+       {
+        var res = validateEmail(email);
+        if (res==false)
+        {
+        alert("Enter valid Email");
+        return false;
+      }
+       }
+
        if (mobile=='')
        {
         alert("Enter Your mobile no.");
         return false;
+       }
+       if (mobile!='')
+       {
+        var res = validatePhone(mobile);
+        if (res==false)
+        {
+        alert("Enter valid mobile");
+        return false;
+      }
        }
 
        if (pwd1=='')
@@ -253,7 +279,7 @@ alert("test111");
                      <form>
   <div class="form-group">
   
-    <input type="text" required class="custominput" id="fname" name="fname" placeholder="Name">
+    <input type="text" required class="custominput" id="fname" name="fname" placeholder="Name" maxlength="50">
   </div>
   <div class="form-group">
     
