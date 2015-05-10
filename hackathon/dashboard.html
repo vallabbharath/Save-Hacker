@@ -3,19 +3,19 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;">
 <title>My Location</title>
-	<link rel="stylesheet" href="https://developers.google.com/maps/documentation/javascript/examples/default.css" type="text/css"></link>
-         	  
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="css/normalize.css" />
-	<link rel="stylesheet" type="text/css" href="css/demo.css" />
-	<link rel="stylesheet" type="text/css" href="css/menu_sideslide.css" />
-	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://developers.google.com/maps/documentation/javascript/examples/default.css" type="text/css"></link>
+            
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/normalize.css" />
+  <link rel="stylesheet" type="text/css" href="css/demo.css" />
+  <link rel="stylesheet" type="text/css" href="css/menu_sideslide.css" />
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
    <link rel="stylesheet" type="text/css" href="dist/css/jquery.datetimepicker.css"/>        
-	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
-	<link rel="stylesheet" href="css/main.css">
-	<!--<script type="text/javascript" src="cordova.js"></script>  -->     
-	<script type="text/javascript" src="config.js"></script>
-	<script type="text/javascript">
+  <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="css/main.css">
+  <!--<script type="text/javascript" src="cordova.js"></script>  -->     
+  <script type="text/javascript" src="config.js"></script>
+  <script type="text/javascript">
 
 
 
@@ -96,7 +96,7 @@ document.getElementsByName('userid').value = userid;
           </div>
     </div><!-- /container -->
             <div id="map_canvas" style="position:absolute;"></div>
-			<div id="result"></div>
+      <div id="result"></div>
 
              
            
@@ -241,16 +241,18 @@ function initialize(res)
         var x = [res1.lat,res1.lng];
         locations[y]=x; y++;
         
-       var a = ['<div class="info_content"><p>'+res1.address+'</p><p><a href="javascript:booking('+res1.parkingid+','+res1.fromdate+','+res1.fromtime+','+res1.totime+','+res1.aproxprice+')">Book Now</a></p></div>'];
-       //alert(a);
-        parkdetails1[b]=a; b++;
         if (res1.availcount==0){
+           var a = ['<div class="info_content"><p>'+res1.address+'</p><p><a href="javascript:booking('+res1.parkingid+','+res1.fromdate+','+res1.fromtime+','+res1.totime+','+res1.aproxprice+')">Book Now</a></p></div>'];
+          //alert(a);
+          parkdetails1[b]=a; b++;
            var m = iconURLPrefix + 'parking_pin1.png';
            icons.push(m);
         }
         else
         {
-            var m = iconURLPrefix + 'parking_pin.png';
+          var a = ['<div class="info_content"><p>'+res1.address+'</p><p>Parking space already booked! Please try another time or slot!</p></div>'];
+            parkdetails1[b]=a; b++;
+           var m = iconURLPrefix + 'parking_pin.png';
            icons.push(m); 
         }
         search_location = res1.searchlocation;
@@ -259,7 +261,7 @@ function initialize(res)
     {
         //No nearby parking slots found.. Render only search location.
         var x = [res1.lat,res1.lng];
-        locations[y]=x; y++;
+        locations[y]=x; 
         
        var a = ['<div class="info_content"><p>No Parking Lots found nearby for your search location. Did you try searching another nearby location?</p></div>'];
        parkdetails1[b]=a; b++;
@@ -269,13 +271,15 @@ function initialize(res)
     }
   });
   
-  var locArray = search_location.split(','); 
-  locations[y] = locArray;
-  var m = iconURLPrefix + 'current_pin.png';
-  icons.push(m);
-
-  alert("latlong = " + latitude + "," + longitude);
-  alert("latlong = " + locArray[0] + "," + locArray[1]);
+  var locArray;
+  if(y==0) {
+    locArray = locations[0];
+  } else {
+    locArray  = search_location.split(','); 
+    locations[y] = locArray;  
+    var m = iconURLPrefix + 'current_pin.png';
+    icons.push(m);
+  }
 
   var iconsLength = icons.length;
 
@@ -290,10 +294,10 @@ function initialize(res)
        position: google.maps.ControlPosition.LEFT_BOTTOM
     }
   });
-	
-	var input = document.getElementById('address');
-	var autocomplete = new google.maps.places.Autocomplete(input);
-	autocomplete.bindTo('bounds', map);
+  
+  var input = document.getElementById('address');
+  var autocomplete = new google.maps.places.Autocomplete(input);
+  autocomplete.bindTo('bounds', map);
   var infowindow = new google.maps.InfoWindow({
     maxWidth: 160
   });
@@ -301,11 +305,10 @@ function initialize(res)
   var markers = new Array();
   var iconCounter = 0;
   
-
-
+  var marker;
     // Add the markers and infowindows to the map
     for (var i = 0; i < locations.length; i++) {
-      var marker;
+      
       if(i!=locations.length-1) {
       marker = new google.maps.Marker({
         position: new google.maps.LatLng(locations[i][0], locations[i][1]),
@@ -317,16 +320,13 @@ function initialize(res)
       else  {
         console.log(i);
         marker = new google.maps.Marker({
-        position: new google.maps.LatLng(locations[i][0], locations[i][1]),
-        map: map,
-        icon: icons[iconCounter],
-        draggable:true,
-        crossOnDrag:false
-      });
-      }
-//sree 
-
-    
+          position: new google.maps.LatLng(locations[i][0], locations[i][1]),
+          map: map,
+          icon: icons[iconCounter],
+          draggable:false,
+          crossOnDrag:false
+        });
+      } 
       markers.push(marker);
 
       google.maps.event.addListener(marker, 'click', (function(marker, i) {
@@ -337,38 +337,42 @@ function initialize(res)
         }
       })(marker, i));
 
-      google.maps.event.addListener(marker, 'dragend', (function(marker) {
-        return function() {
-         console.log(marker.getPosition());
-
-
-  var latlng = new google.maps.LatLng(marker.getPosition().A, marker.getPosition().F);
-  geocoder.geocode({'latLng': latlng}, function(results, status) {
-    if (status == google.maps.GeocoderStatus.OK) {
-      if (results[1]) {
-        //console.log(results[1].formatted_address);
-        //var fullAddrArray = results[1].formatted_address.split(",");
-        $("#address").val(results[1].formatted_address);
-      } else {
-        console.log('No results found');
-      }
-    } else {
-      alert('Geocoder failed due to: ' + status);
-    }
-  });
-
-
-        }
-      })(marker));
-
-
-      
       iconCounter++;
       // We only have a limited number of possible icon colors, so we may have to restart the counter
       if(iconCounter >= iconsLength) {
         iconCounter = 0;
       }
     }
+
+    google.maps.event.addListener(map,'drag',changeMarkerPosition);
+    function changeMarkerPosition() {
+      //console.log("map position"+map.getBounds())
+      var co=map.getBounds().getCenter();
+      console.log(co);
+      var newLat = new google.maps.LatLng(co.A,co.F);
+      marker.setPosition(newLat);
+    } 
+
+    google.maps.event.addListener(map,'dragend',retrieveAddress);
+    function retrieveAddress() {
+      var co=map.getBounds().getCenter();
+      var latlng = new google.maps.LatLng(co.A, co.F);
+      geocoder.geocode({'latLng': latlng}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          if (results[1]) {
+            //console.log(results[1].formatted_address);
+            //var fullAddrArray = results[1].formatted_address.split(",");
+            $("#address").val(results[1].formatted_address);
+          } else {
+            console.log('No results found');
+          }
+        } else {
+          alert('Geocoder failed due to: ' + status);
+        }
+      });
+    }
+
+
 
     function autoCenter() {
       //  Create a new viewpoint bound
