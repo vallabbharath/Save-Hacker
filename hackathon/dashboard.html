@@ -232,6 +232,7 @@ function initialize(res)
   var n=0;
   var iconURLPrefix = 'http://dotsit.in/parking/images/';
   var search_location;
+  var  geocoder = new google.maps.Geocoder();
   $.each(res.parkingdetails, function(j,res1) 
   {
      // alert(res1.status);
@@ -240,18 +241,17 @@ function initialize(res)
         var x = [res1.lat,res1.lng];
         locations[y]=x; y++;
         
+       var a = ['<div class="info_content"><p>'+res1.address+'</p><p><a href="javascript:booking('+res1.parkingid+','+res1.fromdate+','+res1.fromtime+','+res1.totime+','+res1.aproxprice+')">Book Now</a></p></div>'];
+       //alert(a);
+        parkdetails1[b]=a; b++;
         if (res1.availcount==0){
            var m = iconURLPrefix + 'parking_pin1.png';
            icons.push(m);
-		   var a = ['<div class="info_content"><p>'+res1.availcount+'</p><p><a href="javascript:booking('+res1.parkingid+','+res1.fromdate+','+res1.fromtime+','+res1.totime+','+res1.aproxprice+')">Book Now</a></p></div>'];
-		   parkdetails1[b]=a; b++;
         }
         else
         {
-           var m = iconURLPrefix + 'parking_pin.png';
+            var m = iconURLPrefix + 'parking_pin.png';
            icons.push(m); 
-		   var a = ['<div class="info_content"><p>'+res1.availcount+'</p><p>Slot already booked for selected timing</p></div>'];
-		   parkdetails1[b]=a; b++;
         }
         search_location = res1.searchlocation;
     }
@@ -259,29 +259,28 @@ function initialize(res)
     {
         //No nearby parking slots found.. Render only search location.
         var x = [res1.lat,res1.lng];
-        locations[y]=x; 
+        locations[y]=x; y++;
         
        var a = ['<div class="info_content"><p>No Parking Lots found nearby for your search location. Did you try searching another nearby location?</p></div>'];
-       parkdetails1[b]=a;
+       parkdetails1[b]=a; b++;
 
        var m = iconURLPrefix + 'current_pin.png';
        icons.push(m);
     }
   });
   
-  var locArray;
-  if(y==0) {
-    locArray = locations[y];
-  } else {
-	locArray = search_location.split(','); 
-	locations[y] = locArray;
-	var m = iconURLPrefix + 'current_pin.png';
-	icons.push(m);
-  }
+  var locArray = search_location.split(','); 
+  locations[y] = locArray;
+  var m = iconURLPrefix + 'current_pin.png';
+  icons.push(m);
+
+  alert("latlong = " + latitude + "," + longitude);
+  alert("latlong = " + locArray[0] + "," + locArray[1]);
 
   var iconsLength = icons.length;
+
   var map = new google.maps.Map(document.getElementById('map_canvas'), {
-    zoom: 7,
+    zoom: 11,
     center: new google.maps.LatLng(locArray[0], locArray[1]),
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     mapTypeControl: false,
@@ -305,13 +304,29 @@ function initialize(res)
 
 
     // Add the markers and infowindows to the map
-    for (var i = 0; i < locations.length; i++) {  
-      var marker = new google.maps.Marker({
+    for (var i = 0; i < locations.length; i++) {
+      var marker;
+      if(i!=locations.length-1) {
+      marker = new google.maps.Marker({
         position: new google.maps.LatLng(locations[i][0], locations[i][1]),
         map: map,
         icon: icons[iconCounter]
+      }); 
+      }
+      //sree code
+      else  {
+        console.log(i);
+        marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i][0], locations[i][1]),
+        map: map,
+        icon: icons[iconCounter],
+        draggable:true,
+        crossOnDrag:false
       });
+      }
+//sree 
 
+    
       markers.push(marker);
 
       google.maps.event.addListener(marker, 'click', (function(marker, i) {
@@ -321,6 +336,32 @@ function initialize(res)
           infowindow.open(map, marker);
         }
       })(marker, i));
+
+      google.maps.event.addListener(marker, 'dragend', (function(marker) {
+        return function() {
+         console.log(marker.getPosition());
+
+
+  var latlng = new google.maps.LatLng(marker.getPosition().A, marker.getPosition().F);
+  geocoder.geocode({'latLng': latlng}, function(results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      if (results[1]) {
+        //console.log(results[1].formatted_address);
+        //var fullAddrArray = results[1].formatted_address.split(",");
+        $("#address").val(results[1].formatted_address);
+      } else {
+        console.log('No results found');
+      }
+    } else {
+      alert('Geocoder failed due to: ' + status);
+    }
+  });
+
+
+        }
+      })(marker));
+
+
       
       iconCounter++;
       // We only have a limited number of possible icon colors, so we may have to restart the counter
@@ -339,9 +380,7 @@ function initialize(res)
       //  Fit these bounds to the map
       map.fitBounds(bounds);
     }
-    if(y!=0) {
-		autoCenter();
-	}
+    //autoCenter();
 
 }
 
