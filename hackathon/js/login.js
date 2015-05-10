@@ -37,7 +37,7 @@ var usrtype="owner";
 
        var userpwd = "username=" + username +"&password=" + pwd+"&usertype=" + usrtype;
 
-       alert(userpwd);
+      
        console.log(userpwd);
 
         $.ajax({
@@ -49,7 +49,7 @@ var usrtype="owner";
             xhr.getResponseHeader("Accept", "json");
           },
           success : function(res) {
-            alert(res.status);
+            
           if (res.status == "success") {
               console.log(res);
          
@@ -93,7 +93,7 @@ var usrtype="owner";
 
       function newuser()
       {
-        alert("test");
+  
 document.getElementById("userlogin").style.display = "none";
 
 document.getElementById("usersignup").style.display = "block";
@@ -101,6 +101,16 @@ document.getElementById("usersignpbutt").style.display = "none";
 
 
       }
+
+
+function existinguser() {
+  document.getElementById("userlogin").style.display = "block";
+
+document.getElementById("usersignup").style.display = "none";
+document.getElementById("usersignpbutt").style.display = "block";
+}
+
+
       function validateEmail(email) { var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i; return re.test(email); }
        
 function validatePhone(mobile) {
@@ -176,10 +186,10 @@ var usrtype="user";
 var usrtype="owner";
  }
 
-alert("test111");
+
        var userpwd = "fname=" + fname +"&email=" + email+"&mobile=" + mobile+"&pwd=" + pwd1+"&usertype=" + usrtype;
 
-       alert(userpwd);
+
        console.log(userpwd);
 
         $.ajax({
@@ -196,16 +206,22 @@ alert("test111");
 
          
           //window.plugins.nativepagetransitions.flip({
-// the defaults for direction, duration, etc are all fine
           //"href" : "dashboard.html"
            // });
 
         if (usrtype=="user")
         {
-              window.location.href = "thanks.html";
+            window.plugins.nativepagetransitions.flip({
+          "href" : "thanks.html"
+            });
+
+              //window.location.href = "thanks.html";
         }
         else
         {
+           //window.plugins.nativepagetransitions.flip({
+         // "href" : "thanks1.html"
+          //  });
             window.location.href = "thanks1.html";
         }
             } else {

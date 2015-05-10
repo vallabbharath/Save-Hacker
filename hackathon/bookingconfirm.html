@@ -30,26 +30,32 @@
     </head>
     <body>
    <div class="container">
-            <div id="blah" class="menu-wrap">
-                <nav class="menu">
+           <div id="sidebar" class="menu-wrap">
+                    <nav class="menu">
                     <div class="icon-list">
-                        <a href="#"><i class="fa fa-fw fa-star-o"></i><span>Favorites</span></a>
-                        <a href="#"><i class="fa fa-fw fa-bell-o"></i><span>Alerts</span></a>
-                        <a href="#"><i class="fa fa-fw fa-envelope-o"></i><span>Messages</span></a>
-                        <a href="#"><i class="fa fa-fw fa-comment-o"></i><span>Comments</span></a>
-                        <a href="#"><i class="fa fa-fw fa-bar-chart-o"></i><span>Analytics</span></a>
-                        <a href="#"><i class="fa fa-fw fa-newspaper-o"></i><span>Reading List</span></a>
+                        <a href="dashboard.html" onclick="location.href=this.href+'?id='+userid;return false;"><i class="fa fa-fw fa-star-o"></i><span>My Home</span></a>
+                         <a href="myprofile.html" onclick="location.href=this.href+'?id='+userid;return false;"><i class="fa fa-fw fa-star-o"></i><span>My Profile</span></a>
+                          <a href="bookinghistory.html" onclick="location.href=this.href+'?id='+userid;return false;"><i class="fa fa-fw fa-star-o"></i><span>Booking History</span></a>
+
+                       <div class="specificfiller"></div>
+                       <button class="logout btn btn-default" onclick="location.href='index.html'"> logout</button>
+                        
                     </div>
                 </nav>
                 <button class="close-button" id="close-button">Close Menu</button>
             </div>
-            <button class="menu-button" id="open-button">Open Menu</button>
+
+            
             <div class="content-wrap">
                 <div class="content">
-                    <header class="codrops-header"><h1>Title</h1></header>
+                <div class="col-xs-2"><button class="menu-button" id="open-button">Open Menu</button></div>
+<div class="col-xs-8"><h3 style="margin-top:13px;" class="text-center">Success!!</h3></div>
+<div class="col-xs-2"> <div class="pull-right"><img src="img/profile.png" class="profileimg"></div></div>
+                    <header class="codrops-header"> 
+
+                    </header>
                   
                 </div> 
-
 
             
 
@@ -86,14 +92,7 @@
         <script src="js/main.js"></script>
             <script src="js/classie.js"></script>
         <script src="js/main1.js"></script>
-        <script type="text/javascript">
-var screenwidth = window.screen.width;
-var screenwidth1=screenwidth*0.75;
-      var screenheight = window.screen.height;
 
-  document.getElementById("blah").style = "height:" + screenheight + "px; width:"+screenwidth1+"px;";
-
-        </script>
         <script type="text/javascript">
           var file, n;
 file = window.location.pathname+window.location.search;
@@ -105,12 +104,16 @@ var split = split1a.split('=');
 
 
 var userid = split[1];
-alert(userid);
+
 
 var split2 = split1.split('=');
 var confirmid = split2[1];
-alert(confirmid);
+
 document.getElementById("confirm").innerHTML = confirmid; 
+
+$("#sidebar").height($(window).height());
+$("#sidebar").width($(window).width()*0.65);
+
           </script>
     </body>
 </html>

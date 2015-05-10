@@ -30,7 +30,7 @@
     </head>
     <body>
    <div class="container">
-             <div id="sidebar" class="menu-wrap">
+            <div id="sidebar" class="menu-wrap">
                                    <nav class="menu">
                     <div class="icon-list">
                         <a href="dashboard1.html" onclick="location.href=this.href+'?id='+userid;return false;"><i class="fa fa-home"></i><span>My Home</span></a>
@@ -50,12 +50,11 @@
                 </nav>
                 <button class="close-button" id="close-button">Close Menu</button>
             </div>
-
             
             <div class="content-wrap">
                 <div class="content">
                 <div class="col-xs-2"><button class="menu-button" id="open-button">Open Menu</button></div>
-<div class="col-xs-8"><h3 style="margin-top:13px;" class="text-center">Dashboard</h3></div>
+<div class="col-xs-8"><h3 style="margin-top:13px;" class="text-center">My Profile</h3></div>
 <div class="col-xs-2"> <div class="pull-right"><img src="img/profile.png" class="profileimg"></div></div>
                     <header class="codrops-header"> 
 
@@ -68,16 +67,16 @@
 
 
 
+<div class="gap20"></div>
 
-
-                <div class="logindiv">
+              
                  <div class="col-md-12">
                      
-<p class="text-center"> Welcome!!</p>
+<div id="profiledata"></div>
 
                  </div>
             </div><!-- /content-wrap -->
-        </div><!-- /container -->
+       
 
 
 
@@ -118,6 +117,48 @@ document.getElementById("confirm").innerHTML = confirmid;
           <script type="text/javascript">
     $("#sidebar").height($(window).height());
 $("#sidebar").width($(window).width()*0.65);
+
+viewprofile();
+function viewprofile()
+{
+
+ 
+
+ 
+       var userpwd = "userid=" + userid;
+
+;
+       console.log(userpwd);
+
+        $.ajax({
+          type : "post",
+         url : baseurl + "viewprofile",
+          data : userpwd,
+          dataType : "json",
+          Complete : function(xhr) {
+            xhr.getResponseHeader("Accept", "json");
+          },
+          success : function(res) {
+          if (res.status == "success") {
+              console.log(res);
+
+var strhtml = "<table class='table table-bordered'><tr><td>Name</td><td>"+res.name1+"</td></tr><tr><td>Email</td><td>"+res.email+"</td></tr><tr><td>Mobile</td><td>"+res.mobile+"</td></tr><tr><td>Username</td><td>"+res.mobile+"</td></tr></table>";
+
+ document.getElementById("profiledata").innerHTML=strhtml;
+     
+            } else {
+
+               document.getElementById("errormsg").innerHTML="Invalid username or password";
+            }
+
+            if (res.status == "fail1") {
+              alert("fail");
+            }
+          }
+        });
+
+
+}
 
 </script>
     </body>

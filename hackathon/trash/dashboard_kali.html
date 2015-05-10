@@ -3,20 +3,19 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;">
 <title>My Location</title>
-  <link rel="stylesheet" href="https://developers.google.com/maps/documentation/javascript/examples/default.css" type="text/css"></link>
-            
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="css/normalize.css" />
-  <link rel="stylesheet" type="text/css" href="css/demo.css" />
-  <link rel="stylesheet" type="text/css" href="css/menu_sideslide.css" />
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://developers.google.com/maps/documentation/javascript/examples/default.css" type="text/css"></link>
+         	  
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="css/demo.css" />
+	<link rel="stylesheet" type="text/css" href="css/menu_sideslide.css" />
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
    <link rel="stylesheet" type="text/css" href="dist/css/jquery.datetimepicker.css"/>        
-  <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-  <link rel="stylesheet" href="css/main.css">
-  <!--<script type="text/javascript" src="cordova.js"></script>  -->     
-  <script type="text/javascript" src="config.js"></script>
-
-  <script type="text/javascript">
+	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="css/main.css">
+	<!--<script type="text/javascript" src="cordova.js"></script>  -->     
+	<script type="text/javascript" src="config.js"></script>
+	<script type="text/javascript">
 
 
 
@@ -41,31 +40,28 @@ document.getElementsByName('userid').value = userid;
 
 <div class="dashcontent">
 
- <div id="sidebar" class="menu-wrap">
-                    <nav class="menu">
+ <div id="blah" class="menu-wrap" >
+
+                <nav class="menu">
                     <div class="icon-list">
-                        <a href="dashboard.html" onclick="location.href=this.href+'?id='+userid;return false;"><i class="fa fa-fw fa-star-o"></i><span>My Home</span></a>
-                         <a href="myprofile.html" onclick="location.href=this.href+'?id='+userid;return false;"><i class="fa fa-fw fa-star-o"></i><span>My Profile</span></a>
-                          <a href="bookinghistory.html" onclick="location.href=this.href+'?id='+userid;return false;"><i class="fa fa-fw fa-star-o"></i><span>Booking History</span></a>
-                       <div class="specificfiller"></div>
-                       <button class="logout btn btn-default" onclick="location.href='index.html'"> logout</button>
+                     <a href="#"><i class="fa fa-fw fa-bell-o"></i><span>My Home</span></a>
+                     <a href="#"><i class="fa fa-fw fa-envelope-o"></i><span>My profile</span></a>
+                        <a href="bookinghistory.html" onclick="location.href=this.href+'?id='+userid;return false;"><i class="fa fa-fw fa-star-o"></i><span>Booking History</span></a>
+                       
                         
+                       
                     </div>
                 </nav>
                 <button class="close-button" id="close-button">Close Menu</button>
             </div>
-
-            
+           
+            <button class="menu-button" id="open-button">Open Menu</button>
             <div class="content-wrap">
                 <div class="content">
-                <div class="col-xs-2"><button class="menu-button" id="open-button">Open Menu</button></div>
-<div class="col-xs-8"><h3 style="margin-top:13px;" class="text-center">Booking History</h3></div>
-<div class="col-xs-2"> <div class="pull-right"><img src="img/profile.png" class="profileimg"></div></div>
-                    <header class="codrops-header"> 
-
-                    </header>
+                    <header class="codrops-header"><h1>Title</h1></header>
                   
                 </div> 
+
                  
                      
           <div class="content dash-wrapper"></div>
@@ -100,7 +96,7 @@ document.getElementsByName('userid').value = userid;
           </div>
     </div><!-- /container -->
             <div id="map_canvas" style="position:absolute;"></div>
-      <div id="result"></div>
+			<div id="result"></div>
 
              
            
@@ -121,22 +117,16 @@ document.getElementsByName('userid').value = userid;
         <script src="js/classie.js"></script>
         <script src="js/main1.js"></script>
 
-<script>
-    $("#showmenu").click(function(e){
-      e.preventDefault();
-      $("#menu").toggleClass("show");
-    });
-    
-    $("#menu a.sub_menu").click(function(event){
-      event.preventDefault();
-      if($(this).next('ul').length){
-        $(this).next().toggle('fast');
-        $(this).children('i:last-child').toggleClass('fa-caret-down fa-caret-left');
-      }
-    });
-</script>
 <script type="text/javascript" charset="utf-8" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
  <script type="text/javascript">
+
+
+
+
+
+
+
+
 
 jQuery(function($) {
     // Asynchronously Load the map API 
@@ -228,109 +218,103 @@ function error(error)
 function initialize(res) 
 {
 //alert(res);
-  var locations=[];
-  var parkdetails1=[];
-  var icons=[];
-  var y=0;
-  var b=0;
-  var n=0;
-  var iconURLPrefix = 'http://dotsit.in/parking/images/';
-  var search_location;
-  var  geocoder = new google.maps.Geocoder();
-  $.each(res.parkingdetails, function(j,res1) 
-  {
+ var parkinfo=[];
+    var parkdetails1=[];
+    var parkdetails2=[];
+    var y=0;
+    var b=0;
+    var n=0;
+    var iconURLPrefix = 'http://dotsit.in/parking/images/';
+var current_location;
+    $.each(res.parkingdetails, function(j,res1) 
+    {
+
      // alert(res1.status);
-    if (res1.status=="success")
-    {
-        var x = [res1.lat,res1.lng];
-        locations[y]=x; y++;
-        
-        if (res1.availcount==0){
-           var a = ['<div class="info_content"><p>'+res1.address+'</p><p><a href="javascript:booking('+res1.parkingid+','+res1.fromdate+','+res1.fromtime+','+res1.totime+','+res1.aproxprice+')">Book Now</a></p></div>'];
-          //alert(a);
-          parkdetails1[b]=a; b++;
-           var m = iconURLPrefix + 'parking_pin1.png';
-           icons.push(m);
-        }
-        else
-        {
-          var a = ['<div class="info_content"><p>'+res1.address+'</p><p>Parking space already booked! Please try another time or slot!</p></div>'];
-            parkdetails1[b]=a; b++;
-           var m = iconURLPrefix + 'parking_pin.png';
-           icons.push(m); 
-        }
-        search_location = res1.searchlocation;
-    }
-    else
-    {
-        //No nearby parking slots found.. Render only search location.
-        var x = [res1.lat,res1.lng];
-        locations[y]=x; 
-        
-       var a = ['<div class="info_content"><p>No Parking Lots found nearby for your search location. Did you try searching another nearby location?</p></div>'];
-       parkdetails1[b]=a; b++;
-
-       var m = iconURLPrefix + 'current_pin.png';
-       icons.push(m);
-    }
-  });
+if (res1.status=="success")
+{
   
-  var locArray;
-  if(y==0) {
-    locArray = locations[0];
-  } else {
-    locArray  = search_location.split(','); 
-    locations[y] = locArray;  
-    var m = iconURLPrefix + 'current_pin.png';
-    icons.push(m);
-  }
 
-  var iconsLength = icons.length;
 
-  var map = new google.maps.Map(document.getElementById('map_canvas'), {
-    zoom: 11,
-    center: new google.maps.LatLng(locArray[0], locArray[1]),
-    mapTypeId: google.maps.MapTypeId.ROADMAP,
-    mapTypeControl: false,
-    streetViewControl: false,
-    panControl: false,
-    zoomControlOptions: {
-       position: google.maps.ControlPosition.LEFT_BOTTOM
-    }
-  });
+var x = ['<h4>'+res1.availcount+'</h4><p>'+res1.address+'</p>',res1.lat,res1.lng];
+    parkinfo[y]=x; y++;
+    
+   var a = ['<div class="info_content"><h3>'+res1.availcount+'</h3><p>'+res1.address+'</p><p><a href="javascript:booking('+res1.parkingid+','+res1.fromdate+','+res1.fromtime+','+res1.totime+','+res1.aproxprice+')">Book Now</a></p></div>'];
+   //alert(a);
+   parkdetails1[b]=a; b++;
+if (res1.availcount==0){
+   var m = iconURLPrefix + 'parking_pin1.png';
+   parkdetails2.push(m);
+}
+else
+{
+    var m = iconURLPrefix + 'parking_pin.png';
+   parkdetails2.push(m); 
+}
+}
+else
+{
+    var x = ['<h4>'+res1.parkingname+'</h4><p>'+res1.address+'</p>',res1.lat,res1.lng];
+    parkinfo[y]=x; y++;
+    
+   var a = ['<div class="info_content"><h3>'+res1.parkingname+'</h3><p>test'+res1.address+'</p></div>'];
+   parkdetails1[b]=a; b++;
+
+   var m = iconURLPrefix + 'parking_pin.png';
+   parkdetails2.push(m);
+
+current_location="yes";
+
+}
+    });
+    //alert(parkinfo);
+    //alert(parkdetails1);
+
+    var locations = parkinfo;
+ // Define your locations: HTML content for the info window, latitude, longitude
+if (current_location=="yes")
+{
+    parkinfo[y]=['<h4>Current location</h4>',latitude,longitude];
+    parkdetails2.push(iconURLPrefix + 'current_pin.png');
+ }
+
   
-  var input = document.getElementById('address');
-  var autocomplete = new google.maps.places.Autocomplete(input);
-  autocomplete.bindTo('bounds', map);
-  var infowindow = new google.maps.InfoWindow({
-    maxWidth: 160
-  });
+    // Setup the different icons and shadows
+ var icons =parkdetails2;
 
-  var markers = new Array();
-  var iconCounter = 0;
-  
-  var marker;
+    var iconsLength = icons.length;
+
+    var map = new google.maps.Map(document.getElementById('map_canvas'), {
+      zoom: 14,
+      center: new google.maps.LatLng(latitude, longitude),
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      mapTypeControl: false,
+      streetViewControl: false,
+      panControl: false,
+      zoomControlOptions: {
+         position: google.maps.ControlPosition.LEFT_BOTTOM
+      }
+    });
+	
+	var input = document.getElementById('address');
+	var autocomplete = new google.maps.places.Autocomplete(input);
+	autocomplete.bindTo('bounds', map);
+
+    var infowindow = new google.maps.InfoWindow({
+      maxWidth: 160
+    });
+
+    var markers = new Array();
+    
+    var iconCounter = 0;
+    
     // Add the markers and infowindows to the map
-    for (var i = 0; i < locations.length; i++) {
-      
-      if(i!=locations.length-1) {
-      marker = new google.maps.Marker({
-        position: new google.maps.LatLng(locations[i][0], locations[i][1]),
+    for (var i = 0; i < locations.length; i++) {  
+      var marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
         map: map,
         icon: icons[iconCounter]
-      }); 
-      }
-      //sree code
-      else  {
-        console.log(i);
-        marker = new google.maps.Marker({
-          position: new google.maps.LatLng(locations[i][0], locations[i][1]),
-          map: map,
-          icon: icons[iconCounter],
-          draggable:false,
-          crossOnDrag:false
-        });
-      } 
+      });
+
       markers.push(marker);
 
       google.maps.event.addListener(marker, 'click', (function(marker, i) {
@@ -340,43 +324,13 @@ function initialize(res)
           infowindow.open(map, marker);
         }
       })(marker, i));
-
+      
       iconCounter++;
       // We only have a limited number of possible icon colors, so we may have to restart the counter
       if(iconCounter >= iconsLength) {
         iconCounter = 0;
       }
     }
-
-    google.maps.event.addListener(map,'drag',changeMarkerPosition);
-    function changeMarkerPosition() {
-      //console.log("map position"+map.getBounds())
-      var co=map.getBounds().getCenter();
-      console.log(co);
-      var newLat = new google.maps.LatLng(co.A,co.F);
-      marker.setPosition(newLat);
-    } 
-
-    google.maps.event.addListener(map,'dragend',retrieveAddress);
-    function retrieveAddress() {
-      var co=map.getBounds().getCenter();
-      var latlng = new google.maps.LatLng(co.A, co.F);
-      geocoder.geocode({'latLng': latlng}, function(results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-          if (results[1]) {
-            //console.log(results[1].formatted_address);
-            //var fullAddrArray = results[1].formatted_address.split(",");
-            $("#address").val(results[1].formatted_address);
-          } else {
-            console.log('No results found');
-          }
-        } else {
-          alert('Geocoder failed due to: ' + status);
-        }
-      });
-    }
-
-
 
     function autoCenter() {
       //  Create a new viewpoint bound
@@ -388,7 +342,7 @@ function initialize(res)
       //  Fit these bounds to the map
       map.fitBounds(bounds);
     }
-    //autoCenter();
+    autoCenter();
 
 }
 
@@ -449,7 +403,7 @@ function booking(bookingslotid,bdate,fromtime,totime,amount)//webservices hit an
 
  var field1=document.getElementById('datetimepicker_mask').value;
  var field2=document.getElementById('datetimepicker1').value;
-  
+
 //alert(field1);
  if (field1=="____/__/__ __:__")
  {
@@ -496,10 +450,11 @@ if (r == true) {
 
       }
 
+var screenwidth = window.screen.width;
+var screenwidth1=screenwidth*0.75;
+      var screenheight = window.screen.height;
 
-$("#sidebar").height($(window).height());
-$("#sidebar").width($(window).width()*0.75);
-
+  document.getElementById("blah").style = "height:" + screenheight + "px; width:"+screenwidth1+"px;";
 
 </script>
 
@@ -511,35 +466,14 @@ window.onerror = function(errorMsg) {
 }*/
 
 $('#datetimepicker_mask').datetimepicker({
-  mask:'9999/19/39 29:59',
-  step:30
+  mask:'9999/19/39 29:59'
 });
-
-function roundMinutes(date) {
-
-    date.setHours(date.getHours() + Math.round((date.getMinutes()+60)/60));
-    date.setMinutes(0);
-
-    return date;
-}
-
-function roundMinutes1(date) {
-
-    date.setHours(date.getHours() + Math.round((date.getMinutes()+120)/60)) + 1;
-    date.setMinutes(0);
-
-    return date.getHours()+":00";
-}
-
-$('#datetimepicker_mask').val(roundMinutes(new Date()))
 
 $('#datetimepicker1').datetimepicker({
   datepicker:false,
   format:'H:i',
-  step:30
+  step:5
 });
-
-$('#datetimepicker1').val(roundMinutes1(new Date()))
 
 $('#open').click(function(){
   $('#datetimepicker4').datetimepicker('show');

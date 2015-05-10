@@ -60,7 +60,7 @@ color: #000;
 line-height: 30px;
 height: 35px;
 text-align: center;
-font-size: 2em;
+font-size: 1em;
 }
 
 
@@ -195,6 +195,34 @@ input:focus:-ms-input-placeholder { color:transparent; } /* oldIE ;) */
 }
 .gap10{ height: 10px;}
 
+.profileimg {  border-radius: 40px;
+background-color:#000;
+    width: 50px;
+    height: 50px;
+    margin-top: 7px;}
+
+.toppad30 { padding-top: 30px;}    
+
+
+#mapCanvas {
+    width: 100%;
+    height: 200px;
+    
+  }
+  #infoPanel {
+    float: left;
+    margin-left: 10px;
+  }
+  #infoPanel div {
+    margin-bottom: 5px;
+  }
+.logout {
+  width: 100%
+}
+
+.specificfiller {
+/*  height: 18%;*/
+  }
 /*kali css files end*/
 
 

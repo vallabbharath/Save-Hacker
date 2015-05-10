@@ -19,7 +19,7 @@
         <link rel="stylesheet" href="css/main.css">
 
 
-       <script type="text/javascript" src="cordova.js"></script>      
+          
         <script type="text/javascript" src="config.js"></script>
 
         <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
@@ -45,11 +45,18 @@ var userid = split[1];
     <body>
    <div class="container">
             <div id="sidebar" class="menu-wrap">
-                    <nav class="menu">
+                                   <nav class="menu">
                     <div class="icon-list">
-                        <a href="dashboard.html" onclick="location.href=this.href+'?id='+userid;return false;"><i class="fa fa-fw fa-star-o"></i><span>My Home</span></a>
-                         <a href="myprofile.html" onclick="location.href=this.href+'?id='+userid;return false;"><i class="fa fa-fw fa-star-o"></i><span>My Profile</span></a>
-                          <a href="bookinghistory.html" onclick="location.href=this.href+'?id='+userid;return false;"><i class="fa fa-fw fa-star-o"></i><span>Booking History</span></a>
+                        <a href="dashboard1.html" onclick="location.href=this.href+'?id='+userid;return false;"><i class="fa fa-home"></i><span>My Home</span></a>
+                         <a href="myprofile1.html" onclick="location.href=this.href+'?id='+userid;return false;"><i class="fa fa-user"></i><span>My Profile</span></a>
+                          <a href="addparking.html" onclick="location.href=this.href+'?id='+userid;return false;"><i class="fa fa-map-marker"></i><span>Add Parking</span></a>
+                           <a href="parkingslot.html" onclick="location.href=this.href+'?id='+userid;return false;"><i class="fa fa-car"></i><span>Manage Parking</span></a>
+                           <a href="managebooking.html" onclick="location.href=this.href+'?id='+userid;return false;"><i class="fa fa-car"></i><span>Manage Booking</span></a>
+
+
+<img src="img/profile.png" class="profileimg">
+<div id="userinfo"></div>
+
                        <div class="specificfiller"></div>
                        <button class="logout btn btn-default" onclick="location.href='index.html'"> logout</button>
                         
@@ -62,7 +69,7 @@ var userid = split[1];
             <div class="content-wrap">
                 <div class="content">
                 <div class="col-xs-2"><button class="menu-button" id="open-button">Open Menu</button></div>
-<div class="col-xs-8"><h3 style="margin-top:13px;" class="text-center">Booking History</h3></div>
+<div class="col-xs-8"><h3 style="margin-top:13px;" class="text-center">Manage Booking</h3></div>
 <div class="col-xs-2"> <div class="pull-right"><img src="img/profile.png" class="profileimg"></div></div>
                     <header class="codrops-header"> 
 
@@ -146,7 +153,7 @@ var userid = split[1];
 
   $("#sidebar").height($(window).height());
         $("#sidebar").width($(window).width()*0.65);
-             
+  
     
   
    var ajaxdata = "userid=" + userid;
@@ -155,7 +162,7 @@ var userid = split[1];
 
  $.ajax({
               type:"post",
-               url : baseurl + "booking_list",  
+               url : baseurl + "booking_list_owner",  
               data: ajaxdata,
             dataType: "json",
              Complete : function(xhr) {
@@ -212,7 +219,7 @@ function getbookdetails(id)   //webservices hit and validation for uname and pwd
        var bookid = id;
      
 
-
+alert("test");
 
 
        var userpwd = "bookid=" + bookid;
@@ -222,7 +229,7 @@ function getbookdetails(id)   //webservices hit and validation for uname and pwd
 
         $.ajax({
           type : "post",
-         url : baseurl + "bookingdetailssingle",
+         url : baseurl + "bookingdetailssingle1",
           data : userpwd,
           dataType : "json",
           Complete : function(xhr) {
@@ -240,7 +247,7 @@ function getbookdetails(id)   //webservices hit and validation for uname and pwd
 // the defaults for direction, duration, etc are all fine
           //"href" : "dashboard.html"
            // });
-var strhtml = "<strong>Address</strong><p>"+res.address+"</p><strong>Date</strong><p>"+res.fulldate+"</p><h5>From Time</h5><p>"+res.frmtime+"</p><strong>To Time</strong><p>"+res.totime+"</p><strong>Booking Id</strong><p>"+res.bookingconfirmid+"</p>";
+var strhtml = "<strong>Customer Details</strong><p>"+res.name1+"</p><p>"+res.mobile+"</p><strong>Date</strong><p>"+res.fulldate+"</p><h5>From Time</h5><p>"+res.frmtime+"</p><strong>To Time</strong><p>"+res.totime+"</p><strong>Booking Id</strong><p>"+res.bookingconfirmid+"</p>";
 
  document.getElementById("modaldata").innerHTML=strhtml;
 
