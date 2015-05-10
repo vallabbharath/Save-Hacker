@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="css/main.css">
   <!--<script type="text/javascript" src="cordova.js"></script>  -->     
   <script type="text/javascript" src="config.js"></script>
+
   <script type="text/javascript">
 
 
@@ -445,7 +446,7 @@ function booking(bookingslotid,bdate,fromtime,totime,amount)//webservices hit an
 
  var field1=document.getElementById('datetimepicker_mask').value;
  var field2=document.getElementById('datetimepicker1').value;
-
+  
 //alert(field1);
  if (field1=="____/__/__ __:__")
  {
@@ -507,14 +508,35 @@ window.onerror = function(errorMsg) {
 }*/
 
 $('#datetimepicker_mask').datetimepicker({
-  mask:'9999/19/39 29:59'
+  mask:'9999/19/39 29:59',
+  step:30
 });
+
+function roundMinutes(date) {
+
+    date.setHours(date.getHours() + Math.round((date.getMinutes()+60)/60));
+    date.setMinutes(0);
+
+    return date;
+}
+
+function roundMinutes1(date) {
+
+    date.setHours(date.getHours() + Math.round((date.getMinutes()+120)/60)) + 1;
+    date.setMinutes(0);
+
+    return date.getHours()+":00";
+}
+
+$('#datetimepicker_mask').val(roundMinutes(new Date()))
 
 $('#datetimepicker1').datetimepicker({
   datepicker:false,
   format:'H:i',
-  step:5
+  step:30
 });
+
+$('#datetimepicker1').val(roundMinutes1(new Date()))
 
 $('#open').click(function(){
   $('#datetimepicker4').datetimepicker('show');
